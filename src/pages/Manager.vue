@@ -169,15 +169,8 @@
                     <ul class='menu-list'>
                         <li><a @click="openConfigEditor()" :class="[view === 'config_editor' ? 'is-active' : '']" v-if="!settings.legacyInstallMode"><i class="fas fa-edit"/>&nbsp;&nbsp;Config Editor</a></li>
                         <li><a @click="view = 'settings'" :class="[view === 'settings' ? 'is-active' : '']"><i class="fas fa-cog"/>&nbsp;&nbsp;Settings</a></li>
-                        <li>
-                            <a @click="view = 'help'; helpPage = ''" :class="[view === 'help' ? 'is-active' : '']"><i class="fas fa-question-circle"/>&nbsp;&nbsp;Help</a>
-                            <ul v-if="view === 'help'">
-                                <li><a href='#' :class="[{'is-active': helpPage === 'tips&tricks'}]" @click="helpPage = 'tips&tricks'"><i class="fas fa-lightbulb"/>&nbsp;&nbsp;Tips and tricks</a></li>
-                                <li><a href='#' :class="[{'is-active': helpPage === 'gameWontStart'}]" @click="helpPage = 'gameWontStart'"><i class="fas fa-gamepad"/>&nbsp;&nbsp;Game won't start</a></li>
-                                <li><a href='#' :class="[{'is-active': helpPage === 'modsNotWorking'}]" @click="helpPage = 'modsNotWorking'"><i class="fas fa-ban"/>&nbsp;&nbsp;Mods aren't working</a></li>
-                                <li><a href='#' :class="[{'is-active': helpPage === 'likeR2'}]" @click="helpPage = 'likeR2'"><i class="fas fa-heart"/>&nbsp;&nbsp;Like r2modman?</a></li>
-                            </ul>
-                        </li>
+                        <li><a @click="view = 'help'" :class="[view === 'help' ? 'is-active' : '']"><i class="fas fa-question-circle"/>&nbsp;&nbsp;Help</a></li>
+                        <li><a @click="view = 'likeR2'" :class="[view === 'likeR2' ? 'is-active' : '']"><i class="fas fa-heart"/>&nbsp;&nbsp;Like it?</a></li>
                     </ul>
                 </aside>
             </div>
@@ -368,11 +361,8 @@
                     </template>
                 </div>
                 <div v-show="view === 'help'">
-                    <template>
-                        <!-- tips&tricks -->
-                        <!-- gameWontStart -->
-                        <!-- modsNotWorking -->
-                        <!-- likeR2 -->
+                    <help/>
+                    <!-- <template>
                         <div v-if="helpPage === 'tips&tricks'">
                             <hero title='Tips and tricks' heroType='is-info' />
                             <br/>
@@ -447,7 +437,20 @@
                             <p>If you get any issues, look at the other pages that have appeared.</p>
                             <p>Failing that, mention me on the <link-component url='https://discord.gg/5MbXZvd' :target="'external'">Thunderstore Discord Server!</link-component> @ Ebkr#3660</p>
                         </div>
-                    </template>
+                    </template> -->
+                </div>
+                <div v-show="view == 'likeR2'">
+                    <hero :title="'Enjoying the manager?'" :subtitle="'I hope so!'" heroType='is-danger' />
+                    <br/>
+                    <h5 class='title is-5'>You can help support r2modman in multiple ways!</h5>
+                    <div class="content">
+                        <ul>
+                            <li>Preferred: Leave a thumbs-up on <link-component url='https://thunderstore.io/package/ebkr/r2modman/' :target="'external'">r2modman's Thunderstore page</link-component>.</li>
+                            <li>Star the project on <link-component url='https://github.com/ebkr/r2modmanPlus/' :target="'external'">GitHub</link-component>.</li>
+                            <li>Don't forget to show your friends!</li>
+                        </ul>
+                    </div>
+                    <p>But most importantly, recommend new feature ideas! r2modman needs your help to be the best possible mod manager for Risk of Rain 2!</p>
                 </div>
             </div>
         </div>
@@ -459,6 +462,7 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Watch } from 'vue-property-decorator';
 import { Hero, Progress, ExpandableCard, Link, Modal } from '../components/all';
+import Help from './embed/Help.vue';
 
 import ThunderstoreMod from '../model/ThunderstoreMod';
 import ThunderstoreCombo from '../model/ThunderstoreCombo';
@@ -501,7 +505,8 @@ import { spawn } from 'child_process';
         'progress-bar': Progress,
         'expandable-card': ExpandableCard,
         'link-component': Link,
-        'modal': Modal
+        'modal': Modal,
+        'help': Help
     }
 })
 export default class Manager extends Vue {
