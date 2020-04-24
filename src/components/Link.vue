@@ -1,5 +1,8 @@
 <template>
-    <a v-if="target !== null" @click="openLink()">
+    <a v-if="target === 'file'" @click="selectFile()">
+        <slot></slot>
+    </a>
+    <a v-else-if="target !== null" @click="openLink()">
         <slot></slot>
     </a>
     <router-link v-else-if="target === null" tag="div" :to="url">
@@ -13,9 +16,10 @@
 import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator'
 import { ipcRenderer } from 'electron';
+import { spawn } from "child_process";
 
 @Component
-export default class Hero extends Vue {
+export default class Link extends Vue {
 
     @Prop({default: ''})
     url: string | undefined;
@@ -25,6 +29,10 @@ export default class Hero extends Vue {
 
     openLink() {
         ipcRenderer.send('open-link', this.url);
+    }
+
+    selectFile() {
+        spawn('explorer.exe', [`${this.url}`]);
     }
 }
 </script>

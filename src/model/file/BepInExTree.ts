@@ -67,6 +67,14 @@ export default class BepInExTree {
         });
         return files;
     }
+    
+    public getRecursiveDirectoryNames(): string[] {
+        const directories = this.directories.map(value => value.directoryName);
+        this.directories.forEach(tree => {
+            directories.push(...tree.getRecursiveDirectoryNames());
+        });
+        return directories;
+    }
 
     public getDirectories(): BepInExTree[] {
         return this.directories;

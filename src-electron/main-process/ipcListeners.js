@@ -1,5 +1,5 @@
 import { ipcMain, BrowserWindow, dialog, clipboard } from 'electron';
-import { spawnSync } from 'child_process';
+import { spawn, spawnSync } from 'child_process';
 import { autoUpdater } from 'electron-updater';
 import os from 'os';
 

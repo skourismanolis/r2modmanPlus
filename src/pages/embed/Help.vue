@@ -12,7 +12,7 @@
 							</a>
 						</li>
 						<li>
-							<a @click="view = 'mods_not_installing'" :class="[view === 'mods_not_installing' ? 'is-active' : '']">
+							<a @click="view = 'mods_not_working'" :class="[view === 'mods_not_working' ? 'is-active' : '']">
 								Mods not installing
 							</a>
 						</li>
@@ -66,8 +66,9 @@
 						<code>--doorstop-enable true --doorstop-target
 							r2modman/BepInEx\core\BepInEx.Preloader.dll</code>
 					</div>
-					<div v-if="view === 'mods_not_installing'">
-						<mod-not-working/>
+					<div v-if="view === 'mods_not_working'">
+						<mod-not-working
+						:local-mod-list='localModList'/>
 					</div>
 					<div v-if="view === 'common_errors'">
 						<h5 class='title is-5'>Join path of null</h5>
@@ -107,10 +108,10 @@
 	})
 	export default class Help extends Vue {
 
-		@Prop()
-		private localModList: ManifestV2[] = [];
-
 		private view: string = 'overview';
+
+		@Prop({default: []})
+		private localModList: ManifestV2[] | undefined = undefined;
 
 	}
 </script>
