@@ -361,7 +361,8 @@
                     </template>
                 </div>
                 <div v-show="view === 'help'">
-                    <help/>
+                    <help
+                    :local-mod-list='localModList'/>
                     <!-- <template>
                         <div v-if="helpPage === 'tips&tricks'">
                             <hero title='Tips and tricks' heroType='is-info' />
