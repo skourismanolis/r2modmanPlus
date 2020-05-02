@@ -54,17 +54,6 @@
 							<li>Delete the config directory.</li>
 						</ol>
 						<br/>
-						<h5 class='title is-5'>Launching through Steam</h5>
-						<p>
-							Launching through Steam will mean that none of your mods will be used. It's recommended to
-							keep it this way, and to always launch using the manager.
-						</p>
-						<p>
-							If you really want to, you can do so by adding Risk of Rain 2 as a non-steam game, and
-							passing in the following launch parameters:
-						</p>
-						<code>--doorstop-enable true --doorstop-target
-							r2modman/BepInEx\core\BepInEx.Preloader.dll</code>
 					</div>
 					<div v-if="view === 'mods_not_working'">
 						<mod-not-working
@@ -85,6 +74,19 @@
 							Manually setting the Risk of Rain 2 directory may also fix this, although hasn't been
 							tested
 						</p>
+					</div>
+					<div v-if="view === 'tips_and_tricks'">
+						<h5 class='title is-5'>Launching through Steam</h5>
+						<p>
+							Launching through Steam will mean that none of your mods will be used. It's recommended to
+							keep it this way, and to always launch using the manager.
+						</p>
+						<p>
+							If you really want to, you can do so by adding Risk of Rain 2 as a non-steam game, and
+							passing in the following launch parameters:
+						</p>
+						<code>--doorstop-enable true --doorstop-target
+							r2modman/BepInEx\core\BepInEx.Preloader.dll</code>
 					</div>
 				</div>
 			</div>
@@ -108,10 +110,14 @@
 	})
 	export default class Help extends Vue {
 
-		private view: string = 'overview';
+		private view: string = 'general';
 
 		@Prop({default: []})
 		private localModList: ManifestV2[] | undefined = undefined;
+
+		beforeDestroy() {
+			this.view = 'general'
+		}
 
 	}
 </script>

@@ -1,12 +1,12 @@
 <template>
-    <a v-if="target === 'file'" @click="selectFile()">
+    <a v-if="target === 'file'" @click="selectFile()" class='target-link'>
         <slot></slot>
     </a>
-    <a v-else-if="target !== null" @click="openLink()">
+    <a v-else-if="target !== null" @click="openLink()" class='target-link'>
         <slot></slot>
     </a>
     <router-link v-else-if="target === null" tag="div" :to="url">
-        <a>
+        <a class='target-link'>
             <slot></slot>
         </a>
     </router-link>

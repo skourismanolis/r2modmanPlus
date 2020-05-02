@@ -56,7 +56,9 @@
 }
 
 .sticky-top {
-    background-color: #1f2d3b !important;
+    background-color: #9cd55c !important;
 }
 
-/*# sourceMappingURL=bulmaswatch.min.css.map */
+a.target-link {
+    color: #ea6e6e !important;
+}
