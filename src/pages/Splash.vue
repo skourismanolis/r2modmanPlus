@@ -4,17 +4,10 @@
     <div class='notification is-warning'>
         <p>Risk of Rain 2 updates may break mods. If a new update has been released, please be patient.</p>
     </div>
-    <progress-bar 
-        :max='requests.length * 100' 
-        :value='reduceRequests().getProgress() > 0 ? reduceRequests().getProgress() : undefined'
-        :className='[reduceRequests().getProgress() > 0 ? "is-info" : ""]' />
-    <br/>
-    <nav class='level' v-if="isOffline">
-        <div class='level-item'>
-            <a class='button is-info' @click="continueOffline()">Continue in offline mode</a>
-        </div>
-    </nav>
-    <br/>
+    <progress-bar
+            :max='requests.length * 100'
+            :value='reduceRequests().getProgress() > 0 ? reduceRequests().getProgress() : undefined'
+            :className='[reduceRequests().getProgress() > 0 ? "is-info" : ""]' />
     <div class='columns'>
       <div class='column is-one-quarter'>
         <aside class='menu'>
@@ -31,8 +24,17 @@
         </aside>
       </div>
       <div class='column is-three-quarters'>
-        <div>
+        <div class='container'>
           <br/>
+          <nav class='level' v-if="isOffline">
+            <div class='level-item'>
+              <a class='button is-info' @click="continueOffline()">Continue offline</a>&nbsp;
+              <a class='button is-dark' @click="retryConnection()">Try to reconnect</a>
+            </div>
+            <br/><br/>
+          </nav>
+        </div>
+        <div>
           <article class='media'>
             <div class='media-content'>
               <div class='content'>
@@ -49,9 +51,31 @@
                     &nbsp;
                     <strong>Did you know?</strong>
                   </p>
+                  <ul class='margin-right'>
+                    <li>
+                      <p>
+                        You can use the "Install with Mod Manager" button on <link-component
+                              :url="'https://thunderstore.io'" :target="'external'">Thunderstore</link-component>
+                        with r2modman.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        You can export the selected profile from the settings screen as either a file, or a code.
+                        This makes it easy to share your mod list with friends!
+                      </p>
+                    </li>
+                  </ul>
                   <p>
-                    You can use the "Install with Mod Manager" button on <link-component :url="'https://thunderstore.io'" :target="'external'">Thunderstore</link-component> with R2MM. <br/>
-                    If you have multiple installations, simply launch the one you want to associate with Thunderstore first!
+                    <span class='icon'>
+                      <i class='fas fa-question-circle'/>
+                    </span>
+                    &nbsp;
+                    <strong>Having trouble?</strong>
+                  </p>
+                  <p>
+                    Send a screenshot of the error in the Thunderstore modding discord server. Feel free to ping me
+                    if it doesn't get resolved.
                   </p>
                 </div>
                 <div class='container' v-else-if="view === 'about'">
@@ -62,7 +86,7 @@
                     &nbsp;
                     <strong>About r2modman</strong>
                   </p>
-                  <p>It's created by ebkr, using Quasar.</p>
+                  <p>It's created by Ebkr, using Quasar.</p>
                   <p>Quasar provides the following development tools that r2modman is built upon:</p>
                   <ul>
                       <li>Electron</li>
@@ -86,6 +110,13 @@
                               Head on over to the online tab, and download BepInEx and R2API.
                           </p>
                       </li>
+                    <li>
+                      <strong><p>Starting the game with mods</p></strong>
+                      <p>
+                        You have to start the game from within the manager. Starting through Steam will not work
+                        without taking manual steps.
+                      </p>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -205,6 +236,10 @@ export default class Splash extends Vue {
             }
         })
     }
+
+  retryConnection() {
+    this.$router.go(0);
+  }
 
     continueOffline() {
         ThunderstorePackages.PACKAGES = [];
