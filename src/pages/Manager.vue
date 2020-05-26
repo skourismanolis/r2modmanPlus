@@ -645,29 +645,55 @@
 				<div v-show="view === 'likeR2'">
 					<hero :title="'Enjoying the manager?'" :subtitle="'I hope so!'" heroType='is-danger'/>
 					<br/>
-					<h5 class='title is-5'>You can help support r2modman in multiple ways!</h5>
-					<div class="content">
-						<ul>
-							<li>Leave a thumbs-up on
-								<link-component url='https://thunderstore.io/package/ebkr/r2modman/'
-								                :target="'external'">
-									r2modman's Thunderstore page
-								</link-component>
-								.
-							</li>
-							<li>Star the project on
-								<link-component url='https://github.com/ebkr/r2modmanPlus/'
-								                :target="'external'">
-									GitHub
-								</link-component>
-								.
-							</li>
-							<li>Don't forget to show your friends!</li>
-						</ul>
+					<div class='margin-right'>
+						<h5 class='title is-5'>You can help support r2modman in multiple ways!</h5>
+						<div class="content">
+							<ul>
+								<li>Leave a thumbs-up on
+									<link-component url='https://thunderstore.io/package/ebkr/r2modman/'
+									                :target="'external'">
+										r2modman's Thunderstore page</link-component>.
+								</li>
+								<li>Star the project on
+									<link-component url='https://github.com/ebkr/r2modmanPlus/' :target="'external'">
+										GitHub</link-component>.
+								</li>
+								<li>Don't forget to show your friends!</li>
+							</ul>
+						</div>
+						<p>But most importantly, recommend new feature ideas! r2modman needs your help to be the
+							best possible mod manager for Risk of Rain 2!
+						</p>
+						<br/>
+						<p>
+							Do you have a recommendations? Feel free to either raise it as an issue on
+							<link-component url='https://github.com/ebkr/r2modmanPlus/' :target="'external'">
+							GitHub</link-component>, or let me know in the
+							<link-component target='url' :url="'https://discordapp.com/invite/5MbXZvd'">
+								Thunderstore modding discord server</link-component>. If I like it, I'll add it!
+						</p>
+						<br/>
+						<h5 class='title is-6'>Implemented suggestions</h5>
+						<div class="content">
+							<ul>
+								<li>
+									<link-component target='url' :url="'https://github.com/ebkr/r2modmanPlus/issues/68'">
+										Show the mod author</link-component> - Suggested by blazingdrummer
+								</li>
+								<li>
+									<link-component target='url' :url="'https://github.com/ebkr/r2modmanPlus/issues/71'">
+										Show a mod's version number once installed</link-component> - Suggested by
+									blazingdrummer
+								</li>
+								<li>
+									<link-component target='url' :url="'https://github.com/ebkr/r2modmanPlus/issues/74'">
+										Collapse/expand all cards</link-component> - Suggested by blazingdrummer
+								</li>
+								<li>Code-based profile exports - Suggested by Twiner</li>
+								<li>Persistent window size - Suggested by Erad</li>
+							</ul>
+						</div>
 					</div>
-					<p>But most importantly, recommend new feature ideas! r2modman needs your help to be the
-						best possible mod manager for Risk of Rain 2!
-					</p>
 				</div>
 			</div>
 		</div>
