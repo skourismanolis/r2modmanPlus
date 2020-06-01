@@ -63,7 +63,7 @@
 			<h5 class='title is-5'>Did the manager incorrectly install the mod?</h5>
 			<p>
 				Whilst unlikely, there's a history of older save game mods not working correctly, and text mods that
-				don't rely utilise AssetPlus.
+				don't rely on AssetPlusRequester.
 			</p>
 			<br/>
 			<p>
@@ -189,6 +189,7 @@
 		}
 
 		created() {
+			this.stage = 'main';
 			if (this.localModList !== undefined) {
 				this.modList = [...this.localModList];
 				this.modList.sort((a, b) => a.getDisplayName().localeCompare(b.getDisplayName()));

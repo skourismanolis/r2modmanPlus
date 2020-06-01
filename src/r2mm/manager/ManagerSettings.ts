@@ -115,4 +115,8 @@ export default class ManagerSettings {
         this.darkTheme = !this.darkTheme;
         return this.save();
     }
+    
+    public nuke(): void {
+        fs.removeSync(path.join(PathResolver.ROOT, "config"));
+    }
 }

@@ -57,7 +57,11 @@
 					</div>
 					<div v-if="view === 'mods_not_working'">
 						<mod-not-working
-						:local-mod-list='localModList'/>
+								:local-mod-list='localModList'/>
+					</div>
+					<div v-if="view === 'game_not_starting'">
+						<game-wont-start
+								:local-mod-list='localModList'/>
 					</div>
 					<div v-if="view === 'common_errors'">
 						<h5 class='title is-5'>Join path of null</h5>
@@ -101,22 +105,24 @@
 	import ModNotWorking from 'src/pages/embed/journey/ModNotWorking.vue';
 	import { Prop } from 'vue-property-decorator';
 	import ManifestV2 from '../../model/ManifestV2';
+	import GameWontStart from './journey/GameWontStart.vue';
 
 	@Component({
 		components: {
 			'hero': Hero,
-			'mod-not-working': ModNotWorking
+			'mod-not-working': ModNotWorking,
+			'game-wont-start': GameWontStart
 		}
 	})
 	export default class Help extends Vue {
 
 		private view: string = 'general';
 
-		@Prop({default: []})
+		@Prop({ default: [] })
 		private localModList: ManifestV2[] | undefined = undefined;
 
 		beforeDestroy() {
-			this.view = 'general'
+			this.view = 'general';
 		}
 
 	}

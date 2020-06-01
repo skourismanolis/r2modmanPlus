@@ -52,4 +52,9 @@ ipcMain.on('get-assets-path', ()=>{
     }
 })
 
+ipcMain.on('restart', ()=>{
+    app.relaunch();
+    app.exit();
+})
+
 
