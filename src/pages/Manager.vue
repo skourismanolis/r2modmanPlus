@@ -262,7 +262,7 @@
 			<button class="modal-close is-large" aria-label="close" @click="closeErrorModal()"></button>
 		</div>
 		<div class='columns' id='content'>
-			<div class="column is-one-quarter">
+			<div class="column is-one-quarter non-selectable">
 				<aside class="menu">
 					<p class="menu-label">Risk of Rain 2</p>
 					<ul class="menu-list">
@@ -334,12 +334,12 @@
 				</aside>
 			</div>
 			<div class='column is-three-quarters'>
-				<div v-show="view === 'online'">
-					<div class='sticky-top sticky-top--search border-at-bottom'>
+				<div v-if="view === 'online'">
+					<div class='sticky-top sticky-top--search border-at-bottom non-selectable'>
 						<div class='card is-shadowless'>
 							<div class='card-header-title'>
 								<span>Search:&nbsp;&nbsp;</span>
-								<input v-model='thunderstoreSearchFilter' class="input" type="text"/>
+								<input v-model='thunderstoreSearchFilter' class="input" type="text" placeholder="Search for a mod"/>
 								<span>&nbsp;&nbsp;Sort:&nbsp;&nbsp;</span>
 								<select class='select select--content-spacing' v-model="sortingStyleModel">
 									<option v-for="(key) in getSortOptions()" v-bind:key="key">{{key}}</option>
@@ -353,7 +353,7 @@
 						</div>
 					</div>
 					<template>
-						<div v-for='(key, index) in pagedThunderstoreModList' :key="'online-' + index">
+						<div v-for='(key, index) in pagedThunderstoreModList' :key="'online-' + key.getFullName()">
 							<expandable-card
 									:image="key.versions[0].icon"
 									:id="index"
@@ -365,14 +365,14 @@
 									<span v-if="key.pinned" class='has-tooltip-left'
 									      data-tooltip='Pinned on Thunderstore'>
 										<span class="tag is-info">Pinned</span>&nbsp;
-										{{key.name}} by {{key.owner}}
+										<span class="selectable">{{key.name}} by {{key.owner}}</span>
 									</span>
 									<span v-else-if="isModDeprecated(key)" class='has-tooltip-left'
 									      data-tooltip='This mod is potentially broken'>
 										<span class="tag is-danger">Deprecated</span>&nbsp;
-										<strike>{{key.name}} by {{key.owner}}</strike>
+										<strike class="selectable">{{key.name}} by {{key.owner}}</strike>
 									</span>
-									<span v-else>
+									<span v-else class='selectable'>
 										{{key.name}} by {{key.owner}}
 									</span>
 								</template>
@@ -388,10 +388,10 @@
 									<link-component :url="key.packageUrl" :target="'external'">View on Thunderstore
 									</link-component>
 								</div>
-								<div class='card-footer-item'>
+								<div class='card-footer-item non-selectable'>
 									<span><i class='fas fa-download'/> {{key.totalDownloads}}</span>
 								</div>
-								<div class='card-footer-item'>
+								<div class='card-footer-item non-selectable'>
 									<span><i class='fas fa-thumbs-up'/> {{key.rating}}</span>
 								</div>
 							</expandable-card>
@@ -423,12 +423,12 @@
 						</div>
 					</div>
 				</div>
-				<div v-show="view === 'installed'">
+				<div v-if="view === 'installed'">
 					<div class='sticky-top sticky-top--search border-at-bottom'>
 						<div class='card is-shadowless'>
 							<div class='card-header-title'>
-								<span>Search:&nbsp;&nbsp;</span>
-								<input v-model='localSearchFilter' class="input" type="text"/>
+								<span class="non-selectable">Search:&nbsp;&nbsp;</span>
+								<input v-model='localSearchFilter' class="input" type="text" placeholder="Search for an installed mod"/>
 							</div>
 						</div>
 					</div>
@@ -445,7 +445,7 @@
 							</h4>
 						</div>
 						<template v-if="localModList.length > 0">
-							<div v-for='(key, index) in searchableLocalModList' :key="'local-' + key.name">
+							<div v-for='(key, index) in searchableLocalModList' :key="'local-' + key.getName()">
 								<expandable-card
 										@moveUp="moveUp(key)"
 										@moveDown="moveDown(key)"
@@ -459,13 +459,13 @@
 										:darkTheme="settings.darkTheme"
 										:expandedByDefault="settings.expandedCards">
 									<template v-slot:title>
-										<span v-if="key.enabled">
+										<span v-if="key.enabled" class='selectable'>
 											{{key.displayName}} by {{key.authorName}}
 										</span>
 										<span v-else class='has-tooltip-left'
 										      data-tooltip='This mod will not be used in-game'>
 											<span class="tag is-warning">Disabled</span>&nbsp;
-											<strike>{{key.displayName}} by {{key.authorName}}</strike>
+											<strike class='selectable'>{{key.displayName}} by {{key.authorName}}</strike>
 										</span>
 									</template>
 									<template v-slot:other-icons>
@@ -507,9 +507,6 @@
 				</div>
 				<div v-show="view === 'settings'">
 					<template>
-						<hero title='Settings'
-						      :subtitle='"Advanced options for r2modman: " + managerVersionNumber.toString()'
-						      heroType='is-info'/>
                         <settings-view v-on:setting-invoked="handleSettingsCallbacks($event)"/>
 					</template>
 				</div>
@@ -562,7 +559,7 @@
 								Follow
 								<link-component
 										:url="'https://github.com/ebkr/r2modmanPlus/wiki/Error:-Failed-to-produce-a-symlink-between-profile-and-RoR2'"
-										:target="'external'">
+										:target="'external'" class='selectable'>
 									this guide
 								</link-component>
 								for more information.
@@ -596,14 +593,14 @@
 								<ul>
 									<li>Leave a thumbs-up on
 										<link-component url='https://thunderstore.io/package/ebkr/r2modman/'
-										                :target="'external'">
+										                :target="'external'" class='selectable'>
 											r2modman's Thunderstore page
 										</link-component>
 										.
 									</li>
 									<li>Star the project on
 										<link-component url='https://github.com/ebkr/r2modmanPlus/'
-										                :target="'external'">
+										                :target="'external'" class='selectable'>
 											GitHub
 										</link-component>
 										.
@@ -633,6 +630,7 @@
 								<link-component
 										url='https://github.com/risk-of-thunder/R2Wiki/wiki/Running-modded-and-unmodded-game-with-shortcuts'
 										:target="'external'"
+										class='selectable'
 								>follow this guide
 								</link-component>
 								,
@@ -643,7 +641,7 @@
 							<h5 class='title is-5'>Something isn't working</h5>
 							<p>If you get any issues, look at the other pages that have appeared.</p>
 							<p>Failing that, mention me on the
-								<link-component url='https://discord.gg/5MbXZvd' :target="'external'">Thunderstore
+								<link-component url='https://discord.gg/5MbXZvd' :target="'external'" class='selectable'>Thunderstore
 									Discord Server!
 								</link-component>
 								@ Ebkr#3660
@@ -745,7 +743,6 @@
 		portableUpdateAvailable: boolean = false;
 		updateTagName: string = '';
 		fixingPreloader: boolean = false;
-		managerVersionNumber: VersionNumber = ManagerInformation.VERSION;
 		exportCode: string = '';
 		pageNumber: number = 1;
 		showSteamIncorrectDirectoryModal: boolean = false;
